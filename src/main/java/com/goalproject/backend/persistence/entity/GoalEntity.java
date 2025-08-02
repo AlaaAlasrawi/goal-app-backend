@@ -23,6 +23,9 @@ public class GoalEntity {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "category")
+    private String category;
+
     @Column(name = "is_completed")
     private Boolean isCompleted;
 
@@ -36,6 +39,6 @@ public class GoalEntity {
     private LocalDateTime updatedAt;
 
     @ManyToOne
-    @JoinColumn(name = "user_id" ,referencedColumnName = "id")
+    @JoinColumn(name = "user_id" ,referencedColumnName = "id",nullable = false)
     private AppUserEntity user;
 }
