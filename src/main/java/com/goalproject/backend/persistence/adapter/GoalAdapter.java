@@ -2,10 +2,14 @@ package com.goalproject.backend.persistence.adapter;
 
 import com.goalproject.backend.domain.mapper.GoalMapper;
 import com.goalproject.backend.domain.model.Goal;
+import com.goalproject.backend.persistence.entity.GoalEntity;
 import com.goalproject.backend.persistence.jpa.GoalJpaRepository;
 import com.goalproject.backend.persistence.repository.GoalRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -15,7 +19,28 @@ public class GoalAdapter implements GoalRepository {
     private final GoalMapper goalMapper;
 
     @Override
-    public Long save(Goal goal) {
+    public Goal save(Goal goal) {
         return goalMapper.entityToModel(goalJpaRepository.save(goalMapper.modelToEntity(goal)));
+    }
+
+    @Override
+    public Goal getGoalById(Long id) {
+        return goalMapper.entityToModel(goalJpaRepository.getById(id));
+    }
+
+    @Override
+    public Page<Goal> getAllGoals(int page, int size, String sortBy, String sortDirection, Long userId) {
+        Sort.Direction direction = Sort.Direction.fromString(sortDirection);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
+
+        Page<GoalEntity> entities = goalJpaRepository.findAll(pageable);
+
+        List<Goal> goals = entities
+                .getContent()
+                .stream()
+                .map(goalMapper::entityToModel)
+                .toList();
+
+        return new PageImpl<>(goals, pageable, entities.getTotalElements());
     }
 }

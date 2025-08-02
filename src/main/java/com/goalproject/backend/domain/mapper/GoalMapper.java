@@ -12,5 +12,5 @@ public interface GoalMapper {
 
     GoalEntity modelToEntity(Goal goal);
 
-    Long entityToModel(GoalEntity save);
+    Goal entityToModel(GoalEntity save);
 }
