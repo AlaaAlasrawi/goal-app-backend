@@ -18,13 +18,13 @@ public class GoalController {
     private final GoalService goalService;
 
     @PostMapping
-    public ResponseEntity<Long>createGoal(@RequestBody CreateGoalRequest createGoalRequest){
-        Goal goal = goalMapper.requestToModel(createGoalRequest);
+    public ResponseEntity<Long> createGoal(@RequestBody CreateGoalRequest request) {
+        Goal goal = goalMapper.requestToModel(request);
         return ResponseEntity.ok(goalService.createGoalService(goal));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Goal>getGoalById(@PathVariable Long id){
+    public ResponseEntity<Goal> getGoalById(@PathVariable Long id) {
         return ResponseEntity.ok(goalService.getGoalById(id));
     }
 
@@ -37,4 +37,14 @@ public class GoalController {
         return ResponseEntity.ok(goalService.getAllGoals(page, size, sortBy, sortDirection));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Goal> updateGoalById(@PathVariable Long id, @RequestBody CreateGoalRequest request) {
+        Goal goal = goalMapper.requestToModel(request);
+        return ResponseEntity.ok(goalService.updateGoalById(id, goal));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> deleteGoalById(@PathVariable Long id) {
+        return ResponseEntity.ok(goalService.deleteGoalById(id));
+    }
 }

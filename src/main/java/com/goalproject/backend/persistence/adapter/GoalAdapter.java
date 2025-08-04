@@ -25,7 +25,9 @@ public class GoalAdapter implements GoalRepository {
 
     @Override
     public Goal getGoalById(Long id) {
-        return goalMapper.entityToModel(goalJpaRepository.getById(id));
+        return goalMapper.entityToModel(goalJpaRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Goal with id " + id + " not found!")
+        ));
     }
 
     @Override
@@ -42,5 +44,15 @@ public class GoalAdapter implements GoalRepository {
                 .toList();
 
         return new PageImpl<>(goals, pageable, entities.getTotalElements());
+    }
+
+    @Override
+    public Boolean deleteGoalById(Long id) {
+        if (getGoalById(id) == null) {
+            return false;
+        }
+
+        goalJpaRepository.deleteById(id);
+        return true;
     }
 }

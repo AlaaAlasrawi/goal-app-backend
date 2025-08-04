@@ -40,4 +40,29 @@ public class GoalService {
 
         return goalRepository.getAllGoals(page, size, sortBy, sortDirection, userId);
     }
+
+    public Boolean deleteGoalById(Long id) {
+        return goalRepository.deleteGoalById(id);
+    }
+
+    public Goal updateGoalById(Long id, Goal newGoal) {
+        Goal oldGoal = goalRepository.getGoalById(id);
+
+        if (oldGoal == null) {
+            throw new GoalNotFoundException(id);
+        }
+
+        Long userId = identityProvider.currentId();
+        if (!oldGoal.getUserId().equals(userId)) {
+            throw new UnauthorizedAccessException();
+        }
+        1
+        oldGoal.setTitle(newGoal.getTitle());
+        oldGoal.setDescription(newGoal.getDescription());
+        oldGoal.setCategory(newGoal.getCategory());
+        oldGoal.setDueDate(newGoal.getDueDate());
+        oldGoal.setUpdatedAt(LocalDateTime.now());
+
+        return goalRepository.save(oldGoal);
+    }
 }

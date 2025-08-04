@@ -11,4 +11,6 @@ public interface GoalRepository {
     Goal getGoalById(Long id);
 
     Page<Goal> getAllGoals(int page, int size, String sortBy, String sortDirection, Long userId);
+
+    Boolean deleteGoalById(Long id);
 }
