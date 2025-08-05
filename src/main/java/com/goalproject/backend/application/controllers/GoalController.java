@@ -43,8 +43,18 @@ public class GoalController {
         return ResponseEntity.ok(goalService.updateGoalById(id, goal));
     }
 
+    @PutMapping("/{id}/completed")
+    public ResponseEntity<Boolean> toggleGoal(@PathVariable Long id) {
+        return ResponseEntity.ok(goalService.toggleGoal(id));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> deleteGoalById(@PathVariable Long id) {
         return ResponseEntity.ok(goalService.deleteGoalById(id));
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Boolean> deleteAllGoals() {
+        return ResponseEntity.ok(goalService.deleteAllGoals());
     }
 }

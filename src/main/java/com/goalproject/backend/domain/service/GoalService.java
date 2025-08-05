@@ -1,8 +1,10 @@
 package com.goalproject.backend.domain.service;
 
+import com.goalproject.backend.application.exception.ResourceNotFoundException;
 import com.goalproject.backend.domain.model.AppUser;
 import com.goalproject.backend.domain.model.Goal;
 import com.goalproject.backend.domain.providers.IdentityProvider;
+import com.goalproject.backend.persistence.repository.AppUserRepository;
 import com.goalproject.backend.persistence.repository.GoalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -16,6 +18,7 @@ public class GoalService {
 
     private final GoalRepository goalRepository;
     private final IdentityProvider identityProvider;
+    private final AppUserRepository appUserRepository;
 
     public Long createGoalService(Goal goal) {
         Long userId = identityProvider.currentId();
@@ -27,6 +30,7 @@ public class GoalService {
         }
 
         goal.setUpdatedAt(LocalDateTime.now());
+        goal.setIsCompleted(false);
         Goal savedGoal = goalRepository.save(goal);
         return savedGoal.getId();
     }
@@ -49,20 +53,48 @@ public class GoalService {
         Goal oldGoal = goalRepository.getGoalById(id);
 
         if (oldGoal == null) {
-            throw new GoalNotFoundException(id);
+            throw new ResourceNotFoundException("Goal with ID " + id + " was not found.");
+
         }
 
         Long userId = identityProvider.currentId();
         if (!oldGoal.getUserId().equals(userId)) {
-            throw new UnauthorizedAccessException();
+            throw new ResourceNotFoundException("You are not authorized to update this goal.");
         }
-        1
+
         oldGoal.setTitle(newGoal.getTitle());
         oldGoal.setDescription(newGoal.getDescription());
         oldGoal.setCategory(newGoal.getCategory());
+        oldGoal.setIsCompleted(newGoal.getIsCompleted());
         oldGoal.setDueDate(newGoal.getDueDate());
         oldGoal.setUpdatedAt(LocalDateTime.now());
 
         return goalRepository.save(oldGoal);
+    }
+
+    public Boolean deleteAllGoals() {
+        Long userId = identityProvider.currentId();
+        Long deletedCount = goalRepository.deleteAllByUserId(userId);
+        return deletedCount > 0;
+    }
+
+    public Boolean toggleGoal(Long id) {
+        Goal goal = goalRepository.getGoalById(id);
+        AppUser user = identityProvider.currentIdentity();
+
+        if (goal == null) {
+            throw new ResourceNotFoundException("Goal with ID " + id + " was not found.");
+        } else if (goal.getIsCompleted()) {
+            user.setNoCompletedGoals(Math.max(0, user.getNoCompletedGoals() - 1));
+        } else {
+            user.setNoCompletedGoals(user.getNoCompletedGoals() + 1);
+        }
+
+        goal.setIsCompleted(!Boolean.TRUE.equals(goal.getIsCompleted()));
+        goal.setUpdatedAt(LocalDateTime.now());
+        goalRepository.save(goal);
+        appUserRepository.save(user);
+
+        return goal.getIsCompleted();
     }
 }

@@ -4,11 +4,12 @@ import com.goalproject.backend.application.dtos.goal.CreateGoalRequest;
 import com.goalproject.backend.domain.model.Goal;
 import com.goalproject.backend.persistence.entity.GoalEntity;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface GoalMapper {
 
-   Goal requestToModel(CreateGoalRequest request) ;
+    Goal requestToModel(CreateGoalRequest request);
 
     GoalEntity modelToEntity(Goal goal);
 
