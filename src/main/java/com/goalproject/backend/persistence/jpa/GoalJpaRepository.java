@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface GoalJpaRepository extends JpaRepository<GoalEntity, Long> {
 
     @Modifying
-    @Query("DELETE FROM goal g WHERE g.user.id = :userId")
+    @Query("DELETE FROM goal g WHERE g.userId = :userId")
     Long deleteAllByUserId(@Param("userId") Long userId);
 
 }

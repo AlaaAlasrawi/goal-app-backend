@@ -31,7 +31,4 @@ public class AppUserEntity {
 
     @Column(name = "no_completed_goals")
     private Long noCompletedGoals;
-
-    @OneToMany(mappedBy = "user")
-    private Set<GoalEntity> goals;
 }

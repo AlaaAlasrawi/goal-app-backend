@@ -38,7 +38,7 @@ public class GoalEntity {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id" ,referencedColumnName = "id",nullable = false)
-    private AppUserEntity user;
+    @Column(name = "user_id")
+    private Long userId;
 }
+
