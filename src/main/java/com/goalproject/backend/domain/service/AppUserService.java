@@ -15,4 +15,8 @@ public class AppUserService {
         return user.getNoCompletedGoals();
     }
 
+    public AppUser getCurrentUserProfile() {
+        AppUser user = identityProvider.currentIdentity();
+        return user;
+    }
 }

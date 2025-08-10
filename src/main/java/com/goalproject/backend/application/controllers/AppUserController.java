@@ -1,5 +1,6 @@
 package com.goalproject.backend.application.controllers;
 
+import com.goalproject.backend.domain.model.AppUser;
 import com.goalproject.backend.domain.service.AppUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,11 @@ public class AppUserController {
     @GetMapping("/completed-goals-count")
     public ResponseEntity<Long> getCompletedGoalsCountForCurrentUser() {
         return ResponseEntity.ok(appUserService.getCompletedGoalsCount());
+    }
+
+    @GetMapping("/profile")
+    public ResponseEntity<AppUser> getCurrentUserProfile() {
+        return ResponseEntity.ok(appUserService.getCurrentUserProfile());
     }
 
 }
