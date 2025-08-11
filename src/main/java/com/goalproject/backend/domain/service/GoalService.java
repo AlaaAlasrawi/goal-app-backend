@@ -65,7 +65,6 @@ public class GoalService {
         oldGoal.setTitle(newGoal.getTitle());
         oldGoal.setDescription(newGoal.getDescription());
         oldGoal.setCategory(newGoal.getCategory());
-        oldGoal.setIsCompleted(newGoal.getIsCompleted());
         oldGoal.setDueDate(newGoal.getDueDate());
         oldGoal.setUpdatedAt(LocalDateTime.now());
 

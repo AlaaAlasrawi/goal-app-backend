@@ -4,7 +4,6 @@ import com.goalproject.backend.application.exception.ResourceNotFoundException;
 import com.goalproject.backend.domain.mapper.AppUserMapper;
 import com.goalproject.backend.domain.model.AppUser;
 import com.goalproject.backend.persistence.jpa.AppUserJpaRepository;
-import com.goalproject.backend.persistence.jpa.GoalJpaRepository;
 import com.goalproject.backend.persistence.repository.AppUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
