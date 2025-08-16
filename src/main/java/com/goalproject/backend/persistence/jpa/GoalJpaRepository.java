@@ -14,4 +14,6 @@ public interface GoalJpaRepository extends JpaRepository<GoalEntity, Long> {
     @Query("DELETE FROM goal g WHERE g.userId = :userId")
     Long deleteAllByUserId(@Param("userId") Long userId);
 
+    @Query("SELECT COUNT(*) FROM goal WHERE userId = :userId AND isCompleted= true")
+    Long getCompletedGoalsCount(Long userId);
 }

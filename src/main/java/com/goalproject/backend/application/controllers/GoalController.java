@@ -37,6 +37,12 @@ public class GoalController {
         return ResponseEntity.ok(goalService.getAllGoals(page, size, sortBy, sortDirection));
     }
 
+    @GetMapping("/completed-goals-count")
+    public ResponseEntity<Long> getCompletedGoalsCountForCurrentUser() {
+        return ResponseEntity.ok(goalService.getCompletedGoalsCount());
+    }
+
+
     @PutMapping("/{id}")
     public ResponseEntity<Goal> updateGoalById(@PathVariable Long id, @RequestBody CreateGoalRequest request) {
         Goal goal = goalMapper.requestToModel(request);

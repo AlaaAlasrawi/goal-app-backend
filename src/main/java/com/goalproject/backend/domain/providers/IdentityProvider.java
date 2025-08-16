@@ -17,7 +17,6 @@ public class IdentityProvider {
                 .password("123")
                 .email("user@email.com")
                 .fullName("user")
-                .noCompletedGoals(3L)
                 .build();
         return user;
     }

@@ -96,4 +96,9 @@ public class GoalService {
 
         return goal.getIsCompleted();
     }
+
+    public Long getCompletedGoalsCount() {
+        Long userId = identityProvider.currentId();
+        return goalRepository.getCompletedGoalsCount(userId);
+    }
 }

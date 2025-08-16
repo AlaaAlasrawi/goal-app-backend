@@ -15,4 +15,6 @@ public interface GoalRepository {
     Boolean deleteGoalById(Long id);
 
     Long deleteAllByUserId(Long userId);
+
+    Long getCompletedGoalsCount(Long userId);
 }

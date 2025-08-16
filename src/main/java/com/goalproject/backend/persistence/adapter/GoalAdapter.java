@@ -60,4 +60,9 @@ public class GoalAdapter implements GoalRepository {
     public Long deleteAllByUserId(Long userId) {
         return goalJpaRepository.deleteAllByUserId(userId);
     }
+
+    @Override
+    public Long getCompletedGoalsCount(Long userId) {
+        return goalJpaRepository.getCompletedGoalsCount(userId);
+    }
 }
