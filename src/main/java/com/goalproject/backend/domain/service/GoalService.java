@@ -83,7 +83,7 @@ public class GoalService {
 
         if (goal == null) {
             throw new ResourceNotFoundException("Goal with ID " + id + " was not found.");
-        } else if (goal.getIsCompleted()) {
+        } else if (!goal.getIsCompleted()) {
             user.setNoCompletedGoals(Math.max(0, user.getNoCompletedGoals() - 1));
         } else {
             user.setNoCompletedGoals(user.getNoCompletedGoals() + 1);

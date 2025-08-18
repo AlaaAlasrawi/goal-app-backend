@@ -8,4 +8,6 @@ public interface AppUserRepository {
     AppUser save(AppUser user);
 
     AppUser getById(Long userId);
+
+    AppUser findByUsername(String username);
 }

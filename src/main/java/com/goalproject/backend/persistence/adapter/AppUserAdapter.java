@@ -25,4 +25,12 @@ public class AppUserAdapter implements AppUserRepository {
                 () -> new ResourceNotFoundException("User not found")
         ));
     }
+
+    @Override
+    public AppUser findByUsername(String username) {
+        return appUserMapper.entityToModel(appUserJpaRepository.findByUsername(username).orElseThrow(
+                () -> new ResourceNotFoundException("Username not found")
+        ));
+
+    }
 }
