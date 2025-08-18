@@ -21,7 +21,7 @@ public class GoalService {
     private final AppUserRepository appUserRepository;
 
     public Long createGoalService(Goal goal) {
-        Long userId = identityProvider.currentId();
+        Long userId = identityProvider.currentIdentity().getId();
 
         goal.setUserId(userId);
 
@@ -40,7 +40,7 @@ public class GoalService {
     }
 
     public Page<Goal> getAllGoals(int page, int size, String sortBy, String sortDirection) {
-        Long userId = identityProvider.currentId();
+        Long userId = identityProvider.currentIdentity().getId();
 
         return goalRepository.getAllGoals(page, size, sortBy, sortDirection, userId);
     }
@@ -57,7 +57,7 @@ public class GoalService {
 
         }
 
-        Long userId = identityProvider.currentId();
+        Long userId = identityProvider.currentIdentity().getId();
         if (!oldGoal.getUserId().equals(userId)) {
             throw new ResourceNotFoundException("You are not authorized to update this goal.");
         }
@@ -72,7 +72,7 @@ public class GoalService {
     }
 
     public Boolean deleteAllGoals() {
-        Long userId = identityProvider.currentId();
+        Long userId = identityProvider.currentIdentity().getId();
         Long deletedCount = goalRepository.deleteAllByUserId(userId);
         return deletedCount > 0;
     }
@@ -98,7 +98,7 @@ public class GoalService {
     }
 
     public Long getCompletedGoalsCount() {
-        Long userId = identityProvider.currentId();
+        Long userId = identityProvider.currentIdentity().getId();
         return goalRepository.getCompletedGoalsCount(userId);
     }
 }

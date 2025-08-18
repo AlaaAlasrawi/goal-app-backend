@@ -33,14 +33,8 @@ public class SecurityConfiguration {
     private final AppUserDetailsService appUserDetailsService;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    @Value("${goaldb.security.paths.endpoints.public}")
+    @Value("${goalapp.security.paths.endpoints.public}")
     private String publicPaths;
-
-    @Value("${goaldb.security.paths.actuator.public}")
-    private String actuatorPublicPaths;
-
-    @Value("${goaldb.security.paths.actuator.private}")
-    private String actuatorPrivatePaths;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -70,7 +64,6 @@ public class SecurityConfiguration {
                 )
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(publicPaths.split(",")).permitAll()
-                        .requestMatchers(actuatorPublicPaths.split(",")).permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

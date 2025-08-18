@@ -2,6 +2,7 @@ package com.goalproject.backend.domain.service.security;
 
 import com.goalproject.backend.domain.model.AppUser;
 import com.goalproject.backend.persistence.repository.AppUserRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

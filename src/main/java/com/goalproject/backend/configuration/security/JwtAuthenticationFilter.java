@@ -21,10 +21,10 @@ import java.io.IOException;
 @Configuration
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-    @Value("${bankdb.jwt.authHeader}")
+    @Value("${goaldb.jwt.authHeader}")
     private String authHeader;
 
-    @Value("${bankdb.jwt.prefix}")
+    @Value("${goaldb.jwt.prefix}")
     private String prefix;
 
     private final JwtService jwtService;
@@ -72,7 +72,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 user.getPassword(),
                 user.getAuthorities()
         );
-    } // #
+    }
 
     private UserDetails loadUserDetails(String username) {
         return appUserDetailsService.loadUserByUsername(username);
