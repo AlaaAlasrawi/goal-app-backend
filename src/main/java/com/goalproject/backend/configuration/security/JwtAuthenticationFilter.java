@@ -21,10 +21,10 @@ import java.io.IOException;
 @Configuration
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-    @Value("${goaldb.jwt.authHeader}")
+    @Value("${goalapp.jwt.authHeader}")
     private String authHeader;
 
-    @Value("${goaldb.jwt.prefix}")
+    @Value("${goalapp.jwt.prefix}")
     private String prefix;
 
     private final JwtService jwtService;

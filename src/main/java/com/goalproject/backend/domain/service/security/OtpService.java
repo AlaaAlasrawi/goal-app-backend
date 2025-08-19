@@ -22,22 +22,22 @@ public class OtpService {
     private static final String NO_SECRET_KEY_FOR_OTP = "No secret key for otp";
     private static final String INVALID_OR_EXPIRED_OTP = "Invalid or expired otp";
     private static final String VALIDATE_OTP_FIRST = "Validate otp first";
-    @Value("${goaldb.otp.length}")
+    @Value("${goalapp.otp.length}")
     private int otpLength = 6;
 
-    @Value("${goaldb.otp.secret-key}")
+    @Value("${goalapp.otp.secret-key}")
     private String otpSecretKey;
 
-    @Value("${goaldb.otp.hash-algorithm}")
+    @Value("${goalapp.otp.hash-algorithm}")
     private String otpHashAlgorithm;
 
-    @Value("${goaldb.otp.prefix-key}")
+    @Value("${goalapp.otp.prefix-key}")
     private String otpPrefixKey;
 
-    @Value("${goaldb.otp.validity-time}")
+    @Value("${goalapp.otp.validity-time}")
     private int otpValidityTime;
 
-    @Value("${goaldb.otp.validity.prefix-key}")
+    @Value("${goalapp.otp.validity.prefix-key}")
     private String otpValidityPrefixKey;
 
     private final RedisTemplate<String, Object> redisTemplate;

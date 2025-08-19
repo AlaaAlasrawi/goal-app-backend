@@ -33,4 +33,14 @@ public class AppUserAdapter implements AppUserRepository {
         ));
 
     }
+
+    @Override
+    public boolean isUsernameAlreadyExists(String username) {
+        return appUserJpaRepository.existsByUsername(username);
+    }
+
+    @Override
+    public boolean isEmailAlreadyExists(String email) {
+        return appUserJpaRepository.existsByEmail(email);
+    }
 }

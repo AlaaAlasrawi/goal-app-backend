@@ -19,16 +19,16 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class JwtService {
 
-    @Value("${goaldb.jwt.secretKey}")
+    @Value("${goalapp.jwt.secretKey}")
     private String secretKey;
 
-    @Value("${goaldb.jwt.validity}")
+    @Value("${goalapp.jwt.validity}")
     private long validity;
 
-    @Value("${goaldb.jwt.authHeader}")
+    @Value("${goalapp.jwt.authHeader}")
     private String authHeader;
 
-    @Value("${goaldb.jwt.prefix}")
+    @Value("${goalapp.jwt.prefix}")
     private String prefix;
 
     public String generateToken(UserDetails userDetails) {
