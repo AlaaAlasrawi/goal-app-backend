@@ -35,7 +35,7 @@ public class GoalAdapter implements GoalRepository {
         Sort.Direction direction = Sort.Direction.fromString(sortDirection);
         Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
 
-        Page<GoalEntity> entities = goalJpaRepository.findAll(pageable);
+        Page<GoalEntity> entities = goalJpaRepository.findAllByUserId(userId,pageable);
 
         List<Goal> goals = entities
                 .getContent()
